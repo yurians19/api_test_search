@@ -1,12 +1,13 @@
 const { crcind, tvmaze } = require('../services')
 const { itunnes } = require('../lib')
-const chalk = require('chalk')
 const searchCtrl = {};
 
 searchCtrl.getSearch = async (req, res) => {
     try {
         const term = req.query.term
-        // console.log(`${chalk.green('[response]',req.query.term)}`)
+        if(!term){
+         res.status(409).send({ message:'error al construir la peticion'})
+        }
         const crcindRes  = await crcind(term)
         const tvmazeRes  = await tvmaze(term)
         const itunnesRes = await itunnes(term)
