@@ -6,7 +6,6 @@ module.exports = async (term,entity) => {
     const {data} = await axios.get(URL,{params:{term,entity}})
     return data
   } catch (error) {
-    console.log('error',error);
     throw Error(error)
   }
 }
