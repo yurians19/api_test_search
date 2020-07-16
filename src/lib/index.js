@@ -1,4 +1,4 @@
 module.exports = {
-    setOriginEntity: require('./setOriginEntity.lib'),
+    setOriginEntity: require('./setOriginEntityAndFormat.lib'),
     itunnes: require('./itunnes.lib'),
 }
