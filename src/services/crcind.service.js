@@ -8,11 +8,15 @@ module.exports = async  (name) => {
       const soapClient = await soap.createClientAsync(url)
       return new Promise((resolve, reject) => {
         soapClient.GetListByName({name}, (err, result) => {
+          let res = []
             if (err){
               reject(err)
             }
-            const { GetListByNameResult: { PersonIdentification: crcindRes }} = result
-            resolve(setOriginEntity(crcindRes,'person','crcind'));
+            if (result) { 
+              const { GetListByNameResult: { PersonIdentification: crcindRes }} = result
+              res = setOriginEntity(crcindRes,'person','crcind')
+            }
+            resolve(res)
           })
         })
     } catch (error) {
