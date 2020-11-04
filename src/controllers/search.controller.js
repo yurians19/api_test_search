@@ -3,13 +3,14 @@ const searchCtrl = {};
 
 searchCtrl.getSearch = async (req, res) => {
     try {
-        const body = req.body
-        if(!body)
+        const query = req.query
+        console.log('query',query);
+        if(Object.entries(query).length === 0)
          res.status(409).send({ message:'error al construir la peticion'})
-        let data  = await product(body)
+        let data  = await product(query)
         if (!data) {
-          await login(body)
-          data = await product(body)
+          await login(query)
+          data = await product(query)
         }
         console.log('data',data);
         res.json(data)
