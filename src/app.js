@@ -5,7 +5,7 @@ const bodyParser = require('body-parser');
 const app = express();
 
 // settings
-app.set('port', process.env.PORT || 4000);
+app.set('port', process.env.PORT || 5000);
 
 // middlewares 
 app.use(bodyParser.json({limit: '50mb'}));
@@ -14,6 +14,6 @@ app.use(cors());
 app.use(express.json());
 
 // routes
-app.use('/search', require('./routes/search.router'));
+app.use('/customapi/search', require('./routes/search.router'));
 
 module.exports = app;
