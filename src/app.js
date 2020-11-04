@@ -14,6 +14,6 @@ app.use(cors());
 app.use(express.json());
 
 // routes
-app.use('/customapi/search', require('./routes/search.router'));
+app.use('/', require('./routes/search.router'));
 
 module.exports = app;
