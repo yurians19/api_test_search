@@ -4,6 +4,6 @@ const router = Router();
 const { getSearch } = require('../controllers/search.controller');
 
 router.route('/')
-    .post(getSearch)
+    .get(getSearch)
 
 module.exports = router;
