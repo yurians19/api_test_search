@@ -17,7 +17,7 @@ module.exports = async ({ code, qty ,url}) => {
       response.status = "In Stock"
       response.quantity = Availability
     }
-    return response
+    return data
   } catch (error) {
     console.log('error',error);
     return null
