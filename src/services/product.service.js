@@ -13,9 +13,11 @@ module.exports = async ({ code, qty ,url}) => {
     const {data : res} = await axios.request({url:`https://www.powerdistributors.com/customapi/Product/Autocomplete`,params:{search:code},headers:{Cookie: powerdistributors}})
     const { Product: { Id } } = res[0]
     const {data} = await axios.request({url:`${url}/customapi/Product/Get/${Id}`,params:{qty,cartType:'regular'},headers:{Cookie: powerdistributors}})
-    const {Product : {Supersedes,IsNLA}} = data
+    const {Product : {Supersedes,IsNLA, ListPrice,ActualCost }} = data
     response.supersedes = Supersedes
     response.IsNLA = IsNLA
+    response.ListPrice = ListPrice
+    response.ActualCost = ActualCost
     response.availability = 0
     const browser = await puppeteer.launch(/* {headless: false} */)
     const page = await browser.newPage();
