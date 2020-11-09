@@ -2,7 +2,6 @@ const axios = require('axios');
 const jsonfile = require('jsonfile')
 const cheerio = require('cheerio')
 const puppeteer = require('puppeteer')
-const Apify = require('apify');
 
 
 
