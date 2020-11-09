@@ -14,6 +14,8 @@ module.exports = async ({ code, qty ,url}) => {
     const { Product: { Id } } = res[0]
     const {data} = await axios.request({url:`${url}/customapi/Product/Get/${Id}`,params:{qty,cartType:'regular'},headers:{Cookie: powerdistributors}})
     const {Product : {Supersedes,IsNLA}} = data
+    response.supersedes = Supersedes
+    response.IsNLA = IsNLA
     const browser = await puppeteer.launch(/* {headless: false} */)
     const page = await browser.newPage();
     await page.setDefaultNavigationTimeout(0);
@@ -31,8 +33,6 @@ module.exports = async ({ code, qty ,url}) => {
     const element = $("#order-builder-search > div.ob__results > ul > li:nth-child(1) > div > div.ob__results__li.ob__results__center-result > i").attr('class');
     if (element != 'ob__overview__icon alert fa fa-exclamation-triangle') {
       response.status = "In Stock"
-      response.supersedes = Supersedes
-      response.IsNLA = IsNLA
     }
     return response
   } catch (error) {
