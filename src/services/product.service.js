@@ -14,7 +14,6 @@ module.exports = async ({ code, qty ,url}) => {
     const { Product: { Id } } = res[0]
     const {data} = await axios.request({url:`${url}/customapi/Product/Get/${Id}`,params:{qty,cartType:'regular'},headers:{Cookie: powerdistributors}})
     const {Product : {Supersedes,IsNLA}} = data
-    console.log('element',data,code,Id);
     const browser = await puppeteer.launch(/* {headless: false} */)
     const page = await browser.newPage();
     await page.setDefaultNavigationTimeout(0);
