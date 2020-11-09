@@ -16,6 +16,7 @@ module.exports = async ({ code, qty ,url}) => {
     const {Product : {Supersedes,IsNLA}} = data
     response.supersedes = Supersedes
     response.IsNLA = IsNLA
+    response.availability = 0
     const browser = await puppeteer.launch(/* {headless: false} */)
     const page = await browser.newPage();
     await page.setDefaultNavigationTimeout(0);
@@ -33,6 +34,7 @@ module.exports = async ({ code, qty ,url}) => {
     const element = $("#order-builder-search > div.ob__results > ul > li:nth-child(1) > div > div.ob__results__li.ob__results__center-result > i").attr('class');
     if (element != 'ob__overview__icon alert fa fa-exclamation-triangle') {
       response.status = "In Stock"
+      response.availability = qty
     }
     return response
   } catch (error) {
