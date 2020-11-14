@@ -1,4 +1,6 @@
 module.exports = {
-    login: require('./login.service'),
-    product: require('./product.service'),
+    loginHustler: require('./loginHustler.service'),
+    loginBriggs: require('./loginBriggs.service'),
+    hustler: require('./hustler.service'),
+    briggs: require('./briggs.service'),
 }

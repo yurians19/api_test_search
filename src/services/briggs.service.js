@@ -5,15 +5,15 @@ const puppeteer = require('puppeteer')
 
 
 
-module.exports = async ({ code, qty ,url}) => {
+module.exports = async ({ code, qty }) => {
   try {
     let response = { status: "Out Stock"} 
     const {powerdistributors} = await jsonfile.readFile('login.json')
-    await axios.delete(`${url}/customapi/Cart/EmptyCart?cartType=regular?clearAdvite=false`,{headers:{Cookie: powerdistributors}})
+    await axios.delete(`https://www.powerdistributors.com/customapi/Cart/EmptyCart?cartType=regular?clearAdvite=false`,{headers:{Cookie: powerdistributors}})
     const {data : res} = await axios.request({url:`https://www.powerdistributors.com/customapi/Product/Autocomplete`,params:{search:code},headers:{Cookie: powerdistributors}})
     const { Product: { Id } } = res[0]
-    const {data} = await axios.request({url:`${url}/customapi/Product/Get/${Id}`,params:{qty,cartType:'regular'},headers:{Cookie: powerdistributors}})
-    const {Product : {Supersedes,IsNLA, ListPrice,ActualCost }} = data
+    const {data} = await axios.request({url:`https://www.powerdistributors.com/customapi/Product/Get/${Id}`,params:{qty,cartType:'regular'},headers:{Cookie: powerdistributors}})
+    const { Product : { Supersedes, IsNLA, ListPrice, ActualCost } } = data
     response.supersedes = Supersedes
     response.IsNLA = IsNLA
     response.ListPrice = ListPrice
@@ -29,7 +29,7 @@ module.exports = async ({ code, qty ,url}) => {
     httpOnly: true,
     secure: true,
     session: false });
-    await page.goto('https://www.powerdistributors.com/portal/build-order'); // Opens page as logged user
+    await page.goto('https://www.powerdistributors.com/portal/build-order');
     let html = await page.content();
     await browser.close();
     let $ = await cheerio.load(html)
