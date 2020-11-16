@@ -8,7 +8,7 @@ const puppeteer = require('puppeteer')
 module.exports = async ({ code, qty }) => {
   try {
     let response = { status: "Out Stock"} 
-    const {powerdistributors} = await jsonfile.readFile('login.json')
+    const {powerdistributors} = await jsonfile.readFile('loginBriggs.json')
     await axios.delete(`https://www.powerdistributors.com/customapi/Cart/EmptyCart?cartType=regular?clearAdvite=false`,{headers:{Cookie: powerdistributors}})
     const {data : res} = await axios.request({url:`https://www.powerdistributors.com/customapi/Product/Autocomplete`,params:{search:code},headers:{Cookie: powerdistributors}})
     const { Product: { Id } } = res[0]
