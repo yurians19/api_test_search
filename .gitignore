@@ -1,3 +1,4 @@
 node_modules/
 .env
-login.json
+loginHustler.json
+loginBriggs.json

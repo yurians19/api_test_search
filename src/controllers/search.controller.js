@@ -25,6 +25,7 @@ searchCtrl.getHustler = async (req, res) => {
          res.status(409).send({ message:'error al construir la peticion'})
         let data  = await hustler(query)
         if (!data) {
+          console.log('hola')
           await loginHustler(query)
           data = await hustler(query)
         }
