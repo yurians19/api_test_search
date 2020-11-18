@@ -9,9 +9,9 @@ module.exports = async ({ code, qty }) => {
                                           params:{c:code,n:qty},
                                           headers:{Cookie: cookspower}
                                         })
-    if (lines.length == 0) {
-      return null
-    }
+    // if (lines.length == 0) {
+    //   return null
+    // }
     const {item: { isinstock }} = lines[0]
     const {quantity, rate} = lines[0]
     if (isinstock) {
