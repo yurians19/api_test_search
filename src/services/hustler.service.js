@@ -19,7 +19,7 @@ module.exports = async ({ code, qty }) => {
       response.status = "In Stock"
       response.availability = quantity
     }
-    return response
+    return lines
   } catch (error) {
     throw Error(error)
   }
