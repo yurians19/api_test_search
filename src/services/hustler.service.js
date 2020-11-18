@@ -5,7 +5,7 @@ module.exports = async ({ code, qty }) => {
   try {
     let response = { status: "Out Stock",availability : 0}
     const {cookspower} = await jsonfile.readFile('loginHustler.json')
-    const {data: { lines }} = await axios.request({  url:`https://www.cookspower.com/scs/services/LiveOrder.Service.ss`,
+    const {data/* : { lines } */} = await axios.request({  url:`https://www.cookspower.com/scs/services/LiveOrder.Service.ss`,
                                           params:{c:code,n:qty},
                                           headers:{Cookie: cookspower}
                                         })
@@ -19,7 +19,7 @@ module.exports = async ({ code, qty }) => {
     //   response.status = "In Stock"
     //   response.availability = quantity
     // }
-    return lines
+    return data
   } catch (error) {
     throw Error(error)
   }
