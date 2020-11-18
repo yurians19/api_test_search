@@ -5,7 +5,7 @@ const bodyParser = require('body-parser');
 const app = express();
 
 // settings
-app.set('port', process.env.PORT || 5500);
+app.set('port', process.env.PORT || 5550);
 
 // middlewares 
 app.use(bodyParser.json({limit: '50mb'}));
