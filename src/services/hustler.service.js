@@ -12,13 +12,13 @@ module.exports = async ({ code, qty }) => {
     // if (lines.length == 0) {
     //   return null
     // }
-    const {item: { isinstock }} = lines[0]
-    const {quantity, rate} = lines[0]
-    if (isinstock) {
-      response.ActualCost = rate
-      response.status = "In Stock"
-      response.availability = quantity
-    }
+    // const {item: { isinstock }} = lines[0]
+    // const {quantity, rate} = lines[0]
+    // if (isinstock) {
+    //   response.ActualCost = rate
+    //   response.status = "In Stock"
+    //   response.availability = quantity
+    // }
     return lines
   } catch (error) {
     throw Error(error)
