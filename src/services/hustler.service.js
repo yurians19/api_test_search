@@ -4,23 +4,22 @@ const jsonfile = require('jsonfile')
 module.exports = async ({ code, qty }) => {
   try {
     let response = { status: "Out Stock",availability : 0}
-    const {cookspower} = await jsonfile.readFile('loginHustler.json')
-    const {data: { lines }} = await axios.request({  url:`https://www.cookspower.com/scs/services/LiveOrder.Service.ss`,
-                                          params:{c:code,n:qty},
-                                          headers:{Cookie: cookspower}
+    //const {cookspower} = await jsonfile.readFile('loginHustler.json')
+    const {data: {items}} = await axios.request({  url:`https://www.cookspower.com/api/items?language=en&facet.exclude=custitem_item_customersegments&currency=USD&c=5226185&sitepath=%2Fscs%2FsearchApi.ssp&use_pcv=F&fieldset=details&n=2&custitem_item_customersegments=Excel%2CHustler&include=facets&country=US&pricelevel=16`,
+                                          params:{url:code},
+                                          //headers:{Cookie: cookspower}
                                         })
-    if (lines.length == 0) {
-      return null
-    }
-    const {item: { isinstock }} = lines[0]
-    const {quantity, rate} = lines[0]
-    if (isinstock) {
-      response.ActualCost = rate
+    const {quantityavailable, pricelevel16} = items[0]
+    if (quantityavailable >= qty) {
+      response.ActualCost = pricelevel16
       response.status = "In Stock"
-      response.availability = quantity
+      response.availability = quantityavailable
     }
-    return response
+    return [items[0],response]
   } catch (error) {
+    if (error.response.status == 404) {
+      return error.response.statusText
+    }
     throw Error(error)
   }
 }
