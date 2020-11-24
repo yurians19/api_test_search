@@ -7,19 +7,18 @@ const puppeteer = require('puppeteer')
 
 module.exports = async ({ code, qty }) => {
   try {
-    let response = { status: "Out Stock"} 
     const {powerdistributors} = await jsonfile.readFile('loginBriggs.json')
     await axios.delete(`https://www.powerdistributors.com/customapi/Cart/EmptyCart?cartType=regular?clearAdvite=false`,{headers:{Cookie: powerdistributors}})
     const {data : res} = await axios.request({url:`https://www.powerdistributors.com/customapi/Product/Autocomplete`,params:{search:code},headers:{Cookie: powerdistributors}})
     const { Product: { Id } } = res[0]
     const {data} = await axios.request({url:`https://www.powerdistributors.com/customapi/Product/Get/${Id}`,params:{qty,cartType:'regular'},headers:{Cookie: powerdistributors}})
     const { Product : { Supersedes, IsNLA, ListPrice, ActualCost, DealerCost } } = data
+    let response = { status: "Out Stock", availability : 0, DealerCost: null, ActualCost: null, supersedes: null, IsNLA: null, ListPrice: null}
     response.supersedes = Supersedes
     response.IsNLA = IsNLA
     response.ListPrice = ListPrice
     response.DealerCost = DealerCost
     response.ActualCost = ActualCost
-    response.availability = 0
     const browser = await puppeteer.launch(/* {headless: false} */)
     const page = await browser.newPage();
     await page.setDefaultNavigationTimeout(0);
