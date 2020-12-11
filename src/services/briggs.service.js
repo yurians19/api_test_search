@@ -33,7 +33,7 @@ module.exports = async ({ code, qty }) => {
     let html = await page.content();
     await browser.close();
     let $ = await cheerio.load(html)
-    const element = $("#order-builder-search > div.ob__results > ul > li:nth-child(1) > div > div.ob__results__li.ob__results__center-result > i").attr('class');
+    const element = $("#order-builder-search > div.ob__results > ul > li:nth-child(1) > div > div.ob__results__li.ob__results__center-result > div > div > em").attr('class');
     if (element != 'ob__overview__icon alert fa fa-exclamation-triangle') {
       response.status = "In Stock"
       response.availability = qty

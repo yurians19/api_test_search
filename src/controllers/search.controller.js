@@ -1,4 +1,4 @@
-const { loginBriggs, briggs, hustler, loginHustler } = require('../services')
+const { loginBriggs, briggs, hustler, loginHustler, search, loginSearch } = require('../services')
 const searchCtrl = {};
 
 searchCtrl.getBriggs = async (req, res) => {
@@ -24,6 +24,24 @@ searchCtrl.getHustler = async (req, res) => {
         if(Object.entries(query).length === 0)
          res.status(409).send({ message:'error al construir la peticion'})
         let data  = await hustler(query)
+        //if (!data) {
+        //  await loginHustler(query)
+        //  data = await hustler(query)
+        //}
+        res.json(data)
+    } catch (error) {
+        console.log('error',error);
+        res.status(500).send({ message:'error internal'})
+    }
+}
+
+searchCtrl.getSearch = async (req, res) => {
+    try {
+        const query = req.query
+        if(Object.entries(query).length === 0)
+         res.status(409).send({ message:'error al construir la peticion'})
+        await loginSearch(query)
+        // let data  = await search(query)
         //if (!data) {
         //  await loginHustler(query)
         //  data = await hustler(query)

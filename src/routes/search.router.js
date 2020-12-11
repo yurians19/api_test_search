@@ -1,12 +1,15 @@
 const { Router } = require('express');
 const router = Router();
 
-const { getBriggs, getHustler } = require('../controllers/search.controller');
+const { getBriggs, getHustler, getSearch } = require('../controllers/search.controller');
 
 router.route('/SP')
     .get(getBriggs)
 
 router.route('/CP')
 .get(getHustler)
+
+router.route('/GA')
+.get(getSearch)
 
 module.exports = router;
