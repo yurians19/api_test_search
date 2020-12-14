@@ -1,4 +1,4 @@
-const { loginBriggs, briggs, hustler, loginHustler, search, loginSearch } = require('../services')
+const { loginBriggs, briggs, hustler, loginHustler, gardner, loginGardner } = require('../services')
 const searchCtrl = {};
 
 searchCtrl.getBriggs = async (req, res) => {
@@ -35,17 +35,16 @@ searchCtrl.getHustler = async (req, res) => {
     }
 }
 
-searchCtrl.getSearch = async (req, res) => {
+searchCtrl.getGardner = async (req, res) => {
     try {
         const query = req.query
         if(Object.entries(query).length === 0)
          res.status(409).send({ message:'error al construir la peticion'})
-        await loginSearch(query)
-        // let data  = await search(query)
-        //if (!data) {
-        //  await loginHustler(query)
-        //  data = await hustler(query)
-        //}
+        let data  = await gardner(query)
+        if (!data) {
+         await loginGardner(query)
+         data = await gardner(query)
+        }
         res.json(data)
     } catch (error) {
         console.log('error',error);

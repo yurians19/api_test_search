@@ -1,8 +1,8 @@
 module.exports = {
     loginHustler: require('./loginHustler.service'),
     loginBriggs: require('./loginBriggs.service'),
-    loginSearch: require('./loginSearch.service'),
+    loginGardner: require('./loginGardner.service'),
     hustler: require('./hustler.service'),
     briggs: require('./briggs.service'),
-    search: require('./search.service'),
+    gardner: require('./gardner.service'),
 }
