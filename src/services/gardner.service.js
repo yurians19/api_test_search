@@ -10,12 +10,17 @@ module.exports = async ({ code, qty }) => {
     headers: { Cookie: `store=default;  PHPSESSID=${gardner};`}
     })
     let $ = await cheerio.load(html)
+    let supersedes =  null
+    const superseded = $("#maincontent > div.columns > div > table > tbody > tr > th > p").text().trim()
+    const supersededContent = $("#maincontent > div.columns > div > table > tbody > tr > th > a").text().trim()
+    if (superseded) {
+      supersedes = supersededContent.slice(supersededContent.indexOf(",")+1).trim()
+    }
     // const description = $("#maincontent > div.columns > div > table > tbody > tr:nth-child(1) > td.description").text().trim()
     // const stock = $("#maincontent > div.columns > div > table > tbody > tr:nth-child(1) > td.item-stock").text().trim()
     const quantityavailable = $("#maincontent > div.columns > div > table > tbody > tr:nth-child(1) > td.quantity-available").text().trim()
     const ListPrice = $("#maincontent > div.columns > div > table > tbody > tr:nth-child(1) > td.list-price").text().trim()
     const ActualCost = $("#maincontent > div.columns > div > table > tbody > tr:nth-child(1) > td.your-price").text().trim()
-    // console.log(typeof quantityavailable, ListPrice, ActualCost, Number(quantityavailable) >= qty);
     if (ActualCost == "Login to view prices") {
       return null
     }
@@ -26,7 +31,7 @@ module.exports = async ({ code, qty }) => {
       response.status = "In Stock"
       response.itemid = code
       response.availability = quantityavailable
-      response.supersedes = null
+      response.supersedes = supersedes
       response.IsNLA = null
     }
     return response
