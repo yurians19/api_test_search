@@ -15,11 +15,12 @@ module.exports = async ({ code, qty }) => {
     const quantityavailable = $("#maincontent > div.columns > div > table > tbody > tr:nth-child(1) > td.quantity-available").text().trim()
     const ListPrice = $("#maincontent > div.columns > div > table > tbody > tr:nth-child(1) > td.list-price").text().trim()
     const ActualCost = $("#maincontent > div.columns > div > table > tbody > tr:nth-child(1) > td.your-price").text().trim()
+    // console.log(typeof quantityavailable, ListPrice, ActualCost, Number(quantityavailable) >= qty);
     if (ActualCost == "Login to view prices") {
       return null
     }
     let response = { status: "Out Stock", availability : 0, itemid: code, ActualCost: null, supersedes: null, IsNLA: null}
-    if (quantityavailable >= qty) {
+    if ( Number(quantityavailable) >= qty) {
       response.ActualCost = ActualCost
       response.ListPrice = ListPrice
       response.status = "In Stock"
