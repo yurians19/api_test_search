@@ -13,7 +13,7 @@ module.exports = async ({ code, qty }) => {
     const { Product: { Id } } = res[0]
     const {data} = await axios.request({url:`https://www.powerdistributors.com/customapi/Product/Get/${Id}`,params:{qty,cartType:'regular'},headers:{Cookie: powerdistributors}})
     const { Product : { Supersedes, IsNLA, ListPrice, ActualCost, DealerCost, SmartshipQuantity } } = data
-    const browser = await puppeteer.launch({headless: false})
+    const browser = await puppeteer.launch(/* {headless: false} */)
     const page = await browser.newPage();
     await page.setDefaultNavigationTimeout(0);
     await page.setCookie(  { name: '.AspNet.Cookies',
