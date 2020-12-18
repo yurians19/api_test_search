@@ -2,7 +2,7 @@ const axios = require('axios')
 const cheerio = require('cheerio')
 const jsonfile = require('jsonfile')
 
-module.exports = async ({ code, qty }) => {
+module.exports = async ({ code, qty, branch }) => {
   try {
     let page = 0
     let loopPage = true
@@ -68,7 +68,7 @@ module.exports = async ({ code, qty }) => {
           return null
         }
 
-        if (`HG, ${code}` == element || !quantityavailable) {
+        if (`${branch}, ${code}` == element || !quantityavailable) {
           loop = false
         }
       } while (loop);
