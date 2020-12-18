@@ -41,7 +41,7 @@ searchCtrl.getGardner = async (req, res) => {
         if(Object.entries(query).length === 0)
          res.status(409).send({ message:'error al construir la peticion'})
         let data  = await gardner(query)
-        if (!data) {
+        if (data == 'Not authorized') {
          await loginGardner(query)
          data = await gardner(query)
         }
