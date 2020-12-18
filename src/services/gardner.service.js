@@ -68,7 +68,7 @@ module.exports = async ({ code, qty }) => {
           return null
         }
 
-        if (code == element.slice(element.indexOf(",")+1).trim() || !quantityavailable) {
+        if (`HG, ${code}` == element || !quantityavailable) {
           loop = false
         }
       } while (loop);
